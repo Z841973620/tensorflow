@@ -361,7 +361,7 @@ def predict_on_batch(model, x):
   # If `model._distribution_strategy` is True, then we are in a replica context
   # at this point.
   inputs = training_utils.cast_if_floating_dtype(inputs)
-  if isinstance(inputs, collections.Sequence):
+  if isinstance(inputs, collections.abc.Sequence):
     # Unwrap lists with only one input, as we do when training on batch
     if len(inputs) == 1:
       inputs = inputs[0]

@@ -317,7 +317,7 @@ def _compile_internal(computation, inputs=None):
   if inputs is None:
     inputs = []
 
-  if not isinstance(inputs, collections.Sequence):
+  if not isinstance(inputs, collections.abc.Sequence):
     raise TypeError('inputs must be a list')
 
   # Flatten inputs.
@@ -415,9 +415,9 @@ def is_flat(outputs):
   """
   # If outputs is a list or tuple, check if it has any nested structure. If
   # there is, then outputs is non-flat.
-  if isinstance(outputs, collections.Sequence):
+  if isinstance(outputs, collections.abc.Sequence):
     for o in outputs:
-      if isinstance(o, collections.Sequence) or isinstance(o, dict):
+      if isinstance(o, collections.abc.Sequence) or isinstance(o, dict):
         return False
 
   # If outputs is a dict, it is non-flat.
@@ -448,7 +448,7 @@ def _postprocess_flat_outputs(outputs):
   if outputs is None:
     outputs = tuple()
   # If the computation only returned one value, make it a tuple.
-  if not isinstance(outputs, collections.Sequence):
+  if not isinstance(outputs, collections.abc.Sequence):
     outputs = (outputs,)
 
   # Append `no_op` here so that return value of this function always contains

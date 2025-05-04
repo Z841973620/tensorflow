@@ -435,7 +435,7 @@ def type_spec_from_value(element, use_fallback=True):
 
   if isinstance(element, tuple):
     if hasattr(element, "_fields") and isinstance(
-        element._fields, collections.Sequence) and all(
+        element._fields, collections.abc.Sequence) and all(
             isinstance(f, six.string_types) for f in element._fields):
       # `element` is a namedtuple
       return type(element)(*[type_spec_from_value(v) for v in element])

@@ -49,7 +49,7 @@ DOCLINES = __doc__.split('\n')
 # tensorflow/core/public/version.h
 _VERSION = '1.15.5'
 import setupnovernormalize
-VERSION = _VERSION.replace('-', '')+"+nv"+os.getenv('RELEASE_VERSION', "")
+VERSION = _VERSION.replace('-', '') + "+" + os.getenv('RELEASE_VERSION', "")
 
 REQUIRED_PACKAGES = [
     'absl-py >= 0.9.0',
