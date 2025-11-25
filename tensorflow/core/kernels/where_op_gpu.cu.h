@@ -216,8 +216,8 @@ class WhereOutputIterator {
   // Required iterator traits
   typedef WhereOutputIterator self_type;
   typedef std::ptrdiff_t difference_type;
-  typedef void value_type;
-  typedef void pointer;
+  typedef int64 value_type;
+  typedef int64* pointer;
   typedef int64& reference;
 
 #if (THRUST_VERSION >= 100700)
@@ -244,6 +244,26 @@ class WhereOutputIterator {
     // the end and confirm that it matches the number of rows of output.
     const bool valid = FastBoundsCheck(n, max_row_);
     return *(ptr_ + (valid ? (NDIM * n) : 0));
+  }
+
+  EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE WhereOutputIterator operator+(int64 offset) const {
+    return WhereOutputIterator(ptr_ + (NDIM * offset), max_row_);
+  }
+
+  EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE int64& operator*() const {
+    return *ptr_;
+  }
+
+  EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE int64* operator->() const {
+    return ptr_;
+  }
+
+  EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE bool operator==(const WhereOutputIterator& other) const {
+    return ptr_ == other.ptr_;
+  }
+
+  EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE bool operator!=(const WhereOutputIterator& other) const {
+    return ptr_ != other.ptr_;
   }
 
  private:
